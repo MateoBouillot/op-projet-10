@@ -8,6 +8,7 @@ const mockContactApi = () => new Promise((resolve) => { setTimeout(resolve, 1000
 
 const Form = ({ onSuccess, onError }) => {
   const [sending, setSending] = useState(false);
+
   const sendContact = useCallback(
     async (evt) => {
       evt.preventDefault();
@@ -16,6 +17,7 @@ const Form = ({ onSuccess, onError }) => {
       try {
         await mockContactApi();
         setSending(false);
+        onSuccess(true)
       } catch (err) {
         setSending(false);
         onError(err);
@@ -60,7 +62,7 @@ Form.propTypes = {
 
 Form.defaultProps = {
   onError: () => null,
-  onSuccess: () => null,
+  onSuccess: () => true,
 }
 
 export default Form;
